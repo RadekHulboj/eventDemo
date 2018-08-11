@@ -8,17 +8,17 @@ import java.util.Objects;
  * Created by radoslaw on 11.08.18.
  */
 public class Event {
-    int id;
+    String id;
     String state;
     DateTime timestamp;
     TypeEnum type;
     String host;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
