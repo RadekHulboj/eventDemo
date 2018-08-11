@@ -6,20 +6,10 @@ import cs.domain.Event;
  * store to hsqldb
 */
 
-public class PersistEvent implements ICrudeEvent{
+public class PersistEvent implements IDaoEvent {
 
     @Override
-    public void save(Event event) {
-
-    }
-
-    @Override
-    public void delete(Event event) {
-
-    }
-
-    @Override
-    public void update(Event event) {
+    public void read(Event event) {
 
     }
 

@@ -1,16 +1,16 @@
 package cs.domain;
 
-import org.joda.time.DateTime;
-
+import javax.persistence.Entity;
+import java.sql.Date;
 import java.util.Objects;
-
 /**
  * Created by radoslaw on 11.08.18.
  */
+@Entity
 public class Event {
     String id;
     String state;
-    DateTime timestamp;
+    Date timestamp;
     TypeEnum type;
     String host;
 
@@ -30,11 +30,11 @@ public class Event {
         this.state = state;
     }
 
-    public DateTime getTimestamp() {
+    public Date getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(DateTime timestamp) {
+    public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
 
