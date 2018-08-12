@@ -1,18 +1,16 @@
 package cs.domain;
 
-import javax.persistence.Entity;
 import java.sql.Date;
 import java.util.Objects;
 /**
  * Created by radoslaw on 11.08.18.
  */
-@Entity
 public class Event {
-    String id;
-    String state;
-    Date timestamp;
-    TypeEnum type;
-    String host;
+    private String id;
+    private String state;
+    private Date timestamp;
+    private TypeEnum type;
+    private String host;
 
     public String getId() {
         return id;
