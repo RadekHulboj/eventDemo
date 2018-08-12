@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class JDBCHelper {
-    private static Connection connection;
 
     static {
         try {
@@ -18,8 +17,11 @@ public class JDBCHelper {
     }
 
     public static Connection getConnection() throws SQLException {
-        connection = DriverManager.getConnection(JDBCConstants.URL, JDBCConstants.USERNAME, JDBCConstants.PASSWORD);
-        return connection;
+        Connection conn = DriverManager.getConnection(JDBCConstants.URL, JDBCConstants.USERNAME, JDBCConstants.PASSWORD);
+        if (conn == null) {
+            System.out.println("Error getting the connection. Please check if the DB server is running");
+        }
+        return conn;
     }
 
     public static void closeConnection(Connection con) throws SQLException {
@@ -28,9 +30,9 @@ public class JDBCHelper {
         }
     }
 
-    public static void closePrepaerdStatement(PreparedStatement stmt) throws SQLException {
-        if (stmt != null) {
-            stmt.close();
+    public static void closePreparedStatement(PreparedStatement ps) throws SQLException {
+        if (ps != null) {
+            ps.close();
         }
     }
 
