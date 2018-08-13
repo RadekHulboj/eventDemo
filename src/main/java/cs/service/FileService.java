@@ -21,7 +21,8 @@ public class FileService {
     }
 
     public String getStringFrom (String path) throws URISyntaxException, IOException {
-        logger.info(String.format("Path: %s", path));
+        String format = String.format("Path: %s", path);
+        logger.info(format);
         String collectStr;
         try(Stream<String> lines = Files.lines(Paths.get(getUri(path)))){
             collectStr = lines.parallel().map(String::trim).collect(Collectors.joining());

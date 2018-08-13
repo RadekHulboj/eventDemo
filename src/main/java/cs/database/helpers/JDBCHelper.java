@@ -5,23 +5,22 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class JDBCHelper {
-
+    private static Logger logger = LoggerFactory.getLogger(JDBCHelper.class);
+    private JDBCHelper(){}
     static {
         try {
             Class.forName(JDBCConstants.DRIVER_NAME);
         } catch (ClassNotFoundException e) {
-            System.out.println("Driver class not found");
+            logger.info("Driver class not found");
         }
     }
 
     public static Connection getConnection() throws SQLException {
-        Connection conn = DriverManager.getConnection(JDBCConstants.URL, JDBCConstants.USERNAME, JDBCConstants.PASSWORD);
-        if (conn == null) {
-            System.out.println("Error getting the connection. Please check if the DB server is running");
-        }
-        return conn;
+        return  DriverManager.getConnection(JDBCConstants.URL, JDBCConstants.USERNAME, JDBCConstants.PASSWORD);
     }
 
     public static void closeConnection(Connection con) throws SQLException {
