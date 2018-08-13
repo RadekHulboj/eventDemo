@@ -27,7 +27,7 @@ public class EventSystemApplication {
   }
 
   private static void resetDatabaseEachTimeExecuted() throws URISyntaxException, IOException, SQLException {
-    executeStatementFromSql("db_sql/event.sql");
+    executeStatementFromSql("db_sql/createTableEvent.sql");
     executeStatementFromSql("db_sql/eventDeleteAll.sql");
   }
 

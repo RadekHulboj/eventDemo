@@ -14,7 +14,7 @@ class FileServiceSpec extends Specification {
 
     def 'get content from the path'() {
         given: 'create sql'
-        def path = "db_sql/event.sql"
+        def path = "db_sql/createTableEvent.sql"
         when:
         def from = fileService.getStringFrom(path)
         then:
