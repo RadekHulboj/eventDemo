@@ -10,36 +10,40 @@ import cs.service.JsonParser;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Arrays;
 import java.util.List;
 
 public class EventSystemApplication {
-    static public void main(String[] args) throws SQLException, IOException, URISyntaxException {
-        createEventDbTable();
 
-        final IDaoEvent persistEvent = new PersistEvent();
-        addEventsToDb(getLogEventsFromJson(), persistEvent);
-        List<Event> dbEvents = persistEvent.read();
-    }
+  public static void main(String[] args) throws SQLException, IOException, URISyntaxException {
+    createEventDbTable();
 
-    private static void addEventsToDb(Event[] events, IDaoEvent persistEvent) {
-        Arrays.stream(events).forEach((event) -> {
-            try {
-                persistEvent.insert(event);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        });
-    }
+    final IDaoEvent persistEvent = new PersistEvent();
+    addEventsToDb(getLogEventsFromJson(), persistEvent);
+    List<Event> dbEvents = persistEvent.read();
+  }
 
-    private static Event[] getLogEventsFromJson() throws URISyntaxException, IOException {
-        JsonParser jsonParser = new JsonParser();
-        return jsonParser.createFromJson("logs/log.json");
-    }
+  private static void addEventsToDb(Event[] events, IDaoEvent persistEvent) {
+    Arrays.stream(events).forEach((event) -> {
+      try {
+        persistEvent.insert(event);
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    });
+  }
 
-    private static void createEventDbTable() throws URISyntaxException, IOException, SQLException {
-        FileService fileService = new FileService();
-        String createEventTableStr = fileService.getStringFrom("db-sql/event.sql");
-        JDBCHelper.getConnection().createStatement().execute(createEventTableStr);
+  private static Event[] getLogEventsFromJson() throws URISyntaxException, IOException {
+    JsonParser jsonParser = new JsonParser();
+    return jsonParser.createFromJson("logs/log.json");
+  }
+
+  private static void createEventDbTable() throws URISyntaxException, IOException, SQLException {
+    FileService fileService = new FileService();
+    String createEventTableStr = fileService.getStringFrom("db_sql/event.sql");
+    try (Statement statement = JDBCHelper.getConnection().createStatement()) {
+      statement.execute(createEventTableStr);
     }
+  }
 }

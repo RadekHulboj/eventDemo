@@ -4,21 +4,37 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FileService {
-    public File getFileFrom(String path) throws URISyntaxException {
+
+    private static Logger LOGGER = LoggerFactory.getLogger(FileService.class);
+
+    public File getFileFrom(String path) throws URISyntaxException, IOException {
         return new File(getUri(path));
     }
 
     public String getStringFrom (String path) throws URISyntaxException, IOException {
-        return Files.lines(Paths.get(getUri(path))).parallel().map(String::trim).collect(Collectors.joining());
+        LOGGER.info(String.format("Path: %s", path));
+        String collectStr;
+        try(Stream<String> lines = Files.lines(Paths.get(getUri(path)))){
+            collectStr = lines.parallel().map(String::trim).collect(Collectors.joining());
+        }
+        return collectStr;
     }
-
-    private URI getUri(String path) throws URISyntaxException {
-        return getClass().getClassLoader().getResource(path).toURI();
+//https://stackoverflow.com/questions/25032716/getting-filesystemnotfoundexception-from-zipfilesystemprovider-when-creating-a-p
+    private URI getUri(String path) throws URISyntaxException, IOException {
+        URL resource = getClass().getClassLoader().getResource(path);
+        return resource.toURI();
     }
 }
