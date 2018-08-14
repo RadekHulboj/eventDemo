@@ -6,8 +6,6 @@ import cs.database.PersistEvent;
 import cs.database.helpers.JDBCHelper;
 import cs.domain.Event;
 import cs.service.FileService;
-import cs.service.JsonParser;
-
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
@@ -36,7 +34,7 @@ public class EventSystemApplication {
     final IDaoEvent persistEvent = new PersistEvent();
     List<Event> dbEvents = persistEvent.read();
     dbEvents.stream().forEach(event -> logger
-        .info(String.format("Id: %s duration: %s", event.getId(), event.getDuration().toString()))
+        .info(String.format("Id: %s duration: %s alert: %s", event.getId(), event.getDuration().toString(), event.getAlert()))
     );
   }
 
