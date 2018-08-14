@@ -1,1 +1,1 @@
-create table if not exists Event (id varchar(45), state varchar(45),timestamp DATE , type INTEGER , host VARCHAR (50));
+CREATE TABLE IF NOT EXISTS Event (id VARCHAR(45), state VARCHAR(45),TIMESTAMP DATE , TYPE INTEGER , host VARCHAR (50), duration INT , alert BOOLEAN);

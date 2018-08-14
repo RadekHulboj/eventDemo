@@ -18,6 +18,6 @@ class FileServiceSpec extends Specification {
         when:
         def from = fileService.getStringFrom(path)
         then:
-        from.contains("create table if not exists") == true
+        from.contains("CREATE TABLE IF NOT EXISTS") == true
     }
 }

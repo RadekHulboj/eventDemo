@@ -17,8 +17,8 @@ import java.util.List;
 
 public class PersistEvent implements IDaoEvent {
 
-    private static final String SELECT_ALL_SQL_QUERY = "SELECT ID,state,timestamp,type,host FROM EVENT";
-    private static final String INSERT_SQL_QUERY = "INSERT INTO EVENT(ID,state,timestamp,type,host) VALUES(?,?,?,?,?)";
+    private static final String SELECT_ALL_SQL_QUERY = "SELECT ID,state,timestamp,type,host,duration,alert FROM EVENT";
+    private static final String INSERT_SQL_QUERY = "INSERT INTO EVENT(ID,state,timestamp,type,host,duration,alert) VALUES(?,?,?,?,?,?,?)";
 
     @Override
     public List<Event> read() throws SQLException {
@@ -39,6 +39,8 @@ public class PersistEvent implements IDaoEvent {
                     event.setState(rs.getString("state"));
                     event.setTimestamp(rs.getDate(3));
                     event.setType(TypeEnum.getEnum(rs.getInt(4)));
+                    event.setDuration(rs.getLong(6));
+                    event.setAlert(rs.getBoolean(7));
                     events.add(event);
                 }
             }
@@ -63,6 +65,8 @@ public class PersistEvent implements IDaoEvent {
                 ps.setDate(3, event.getTimestamp());
                 ps.setInt(4, event.getType() == null ? 0 : event.getType().toValue());
                 ps.setString(5, event.getHost());
+                ps.setInt(6, Math.toIntExact(event.getDuration()));
+                ps.setBoolean(7, event.getAlert());
                 ps.execute();
                 System.out.println("insertEvent => " + ps.toString());
             }

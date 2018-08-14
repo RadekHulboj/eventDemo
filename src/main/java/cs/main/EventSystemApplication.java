@@ -1,5 +1,6 @@
 package cs.main;
 
+import cs.business.OperationalEvent;
 import cs.database.IDaoEvent;
 import cs.database.PersistEvent;
 import cs.database.helpers.JDBCHelper;
@@ -35,7 +36,7 @@ public class EventSystemApplication {
     final IDaoEvent persistEvent = new PersistEvent();
     List<Event> dbEvents = persistEvent.read();
     dbEvents.stream().forEach(event -> logger
-        .info(String.format("Id: %s timestamp: %s", event.getId(), event.getTimestamp().toString()))
+        .info(String.format("Id: %s duration: %s", event.getId(), event.getDuration().toString()))
     );
   }
 
@@ -51,8 +52,9 @@ public class EventSystemApplication {
   }
 
   private static Event[] getLogEventsFromJson() throws URISyntaxException, IOException {
-    JsonParser jsonParser = new JsonParser();
-    return jsonParser.createFromJson("logs/log.json");
+    OperationalEvent operationalEvent = new OperationalEvent();
+    List<Event> events = operationalEvent.buildEvents();
+    return events.toArray(new Event[0]);
   }
 
   private static void executeStatementFromSql(String pathToSql) throws URISyntaxException, IOException, SQLException {

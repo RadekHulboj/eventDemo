@@ -11,6 +11,24 @@ public class Event {
     private Date timestamp;
     private TypeEnum type;
     private String host;
+    private Long duration;
+    private Boolean alert;
+
+    public Long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Long duration) {
+        this.duration = duration;
+    }
+
+    public Boolean getAlert() {
+      return this.alert;
+    }
+
+    public void setAlert(Boolean alert) {
+        this.alert = alert;
+    }
 
     public String getId() {
         return id;
@@ -54,18 +72,25 @@ public class Event {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Event event = (Event) o;
-        return id == event.id &&
-                Objects.equals(state, event.state) &&
-                Objects.equals(timestamp, event.timestamp) &&
-                type == event.type &&
-                Objects.equals(host, event.host);
+        return Objects.equals(id, event.id) &&
+            Objects.equals(state, event.state) &&
+            Objects.equals(timestamp, event.timestamp) &&
+            type == event.type &&
+            Objects.equals(host, event.host) &&
+            Objects.equals(duration, event.duration) &&
+            Objects.equals(alert, event.alert);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, state, timestamp, type, host);
+
+        return Objects.hash(id, state, timestamp, type, host, duration, alert);
     }
 }
