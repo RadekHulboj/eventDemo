@@ -1,10 +1,8 @@
 package cs.database.helpers;
 
-public class JDBCConstants {
-
-    public static final String DRIVER_NAME = "org.hsqldb.jdbc.JDBCDriver";
-    public static final String URL = "jdbc:hsqldb:file:db-data/eventDatabase";
-    public static final String USERNAME = "sa";
-    public static final String PASSWORD = "";
-
+class JDBCConstants {
+    static final String DRIVER_NAME = "org.hsqldb.jdbc.JDBCDriver";
+    static final String URL = "jdbc:hsqldb:file:db-data/eventDatabase";
+    static final String USERNAME = "sa";
+    static final String PASSWORD = "";
 }

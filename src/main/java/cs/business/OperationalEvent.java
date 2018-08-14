@@ -22,7 +22,7 @@ public class OperationalEvent {
     Map<String, List<Event>> collect = Arrays.asList(fromJson).stream().collect(Collectors.groupingBy(Event::getId));
     collect.forEach((id, events) -> {
       int eventPairSizeAlwaysHaveToBe = 2;
-      if(events.size() == eventPairSizeAlwaysHaveToBe) {
+      if (events.size() == eventPairSizeAlwaysHaveToBe) {
         Event event1 = events.get(0);
         Event event2 = events.get(1);
         Event mergeEvent = new Event();
