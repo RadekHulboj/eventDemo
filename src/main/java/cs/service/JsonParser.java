@@ -2,16 +2,16 @@ package cs.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import cs.domain.Event;
-import org.hibernate.annotations.common.util.impl.LoggerFactory;
-import org.jboss.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.io.File;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 
 public class JsonParser {
 
-  Logger logger = LoggerFactory.logger(JsonParser.class);
+  Logger logger = LoggerFactory.getLogger(JsonParser.class);
 
   FileService fileService = new FileService();
   ObjectMapper mapperService = new ObjectMapper();
