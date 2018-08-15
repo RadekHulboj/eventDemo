@@ -15,10 +15,10 @@ public class OperationalEvent {
   private JsonParser jsonParser = new JsonParser();
   private int thresholdInMs = 4;
 
-  public List<Event> buildEvents() throws IOException, URISyntaxException {
+  public List<Event> buildEvents(String logs) throws IOException, URISyntaxException {
 
     ArrayList<Event> mEvents = new ArrayList<>();
-    Event[] fromJson = jsonParser.createFromJson("logs/log.json");
+    Event[] fromJson = jsonParser.createFromJson(logs);
     Map<String, List<Event>> collect = Arrays.asList(fromJson).stream().collect(Collectors.groupingBy(Event::getId));
     collect.forEach((id, events) -> {
       int eventPairSizeAlwaysHaveToBe = 2;

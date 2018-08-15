@@ -21,24 +21,31 @@ public class EventSystemApplication {
 
   public static void main(String[] args) throws SQLException, IOException, URISyntaxException {
     resetDatabaseEachTimeExecuted();
-    addEventsToDbFrom(getLogEventsFromJson());
+    addEventsToDbFrom(getLogEventsFromJson("logs/log.json"));
     printEventsFromDb();
   }
 
   private static void resetDatabaseEachTimeExecuted() throws URISyntaxException, IOException, SQLException {
+    logger.info("Create Event table in Hsqldb");
     executeStatementFromSql("db_sql/createTableEvent.sql");
+    logger.info("Delete all data from Event table");
     executeStatementFromSql("db_sql/eventDeleteAll.sql");
   }
 
   private static void printEventsFromDb() throws SQLException {
+    logger.info("Display merged events by id");
     final IDaoEvent persistEvent = new PersistEvent();
     List<Event> dbEvents = persistEvent.read();
     dbEvents.stream().forEach(event -> logger
-        .info(String.format("Id: %s duration: %s alert: %s", event.getId(), event.getDuration().toString(), event.getAlert()))
+        .info(String.format("Id: %s duration: %s alert: %s",
+                event.getId(),
+                event.getDuration().toString(),
+                event.getAlert()))
     );
   }
 
   private static void addEventsToDbFrom(Event[] events) {
+    logger.info("Insert Event model to Hsqldb");
     final IDaoEvent persistEvent = new PersistEvent();
     Arrays.stream(events).forEach((event) -> {
       try {
@@ -49,9 +56,10 @@ public class EventSystemApplication {
     });
   }
 
-  private static Event[] getLogEventsFromJson() throws URISyntaxException, IOException {
+  private static Event[] getLogEventsFromJson(String logs) throws URISyntaxException, IOException {
+    logger.info("Convert json input file to merged Event model");
     OperationalEvent operationalEvent = new OperationalEvent();
-    List<Event> events = operationalEvent.buildEvents();
+    List<Event> events = operationalEvent.buildEvents(logs);
     return events.toArray(new Event[0]);
   }
 

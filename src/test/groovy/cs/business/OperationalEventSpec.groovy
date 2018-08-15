@@ -6,7 +6,6 @@ class OperationalEventSpec extends Specification {
     OperationalEvent sut = new OperationalEvent()
 
     def 'build events grouping by id'() {
-        given: 'events from the json'
         when:
         def events = sut.buildEvents()
         then: '3 events should be'
@@ -14,7 +13,6 @@ class OperationalEventSpec extends Specification {
     }
 
     def 'the 2 alerts should be'() {
-        given: 'events from the json'
         when:
         def events = sut.buildEvents()
         then: 'iterate all events if duration grater than threshold alert true other way false'
