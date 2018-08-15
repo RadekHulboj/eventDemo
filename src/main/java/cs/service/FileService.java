@@ -20,14 +20,6 @@ public class FileService {
 
   private static Logger logger = LoggerFactory.getLogger(FileService.class);
 
-  @Deprecated
-  /**
-   * this is bug didn't work on fatJar
-   */
-  public File getFileFrom(String path) throws URISyntaxException, IOException {
-    return new File(getUri(path));
-  }
-
   public String getStringFrom(String path) throws URISyntaxException, IOException {
     String format = String.format("Path: %s", path);
     logger.debug(format);
@@ -58,7 +50,6 @@ public class FileService {
         }
       }
     }
-
     return uri;
   }
 }
