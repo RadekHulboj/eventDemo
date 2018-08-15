@@ -57,7 +57,7 @@ public class EventSystemApplication {
   }
 
   private static Event[] getLogEventsFromJson(String logs) throws URISyntaxException, IOException {
-    logger.info("Convert json input file to merged Event model");
+    logger.info("Convert 6 json input data file and merged to 3 Event objects");
     OperationalEvent operationalEvent = new OperationalEvent();
     List<Event> events = operationalEvent.buildEvents(logs);
     return events.toArray(new Event[0]);

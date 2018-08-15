@@ -32,9 +32,45 @@ class JsonParserSpec extends Specification {
     }
 
     private void mockFileService(String path) {
-        SUT.fileService.getFileFrom(path) >> new File(getClass().getResource(path).toURI())
+        SUT.fileService.getStringFrom(path) >> jsonString
     }
     private void mockBadFileService(String path) {
-        SUT.fileService.getFileFrom(path) >> null
+        SUT.fileService.getStringFrom(path) >> null
     }
+    def jsonString = "[\n" +
+            "  {\n" +
+            "    \"id\": \"scsmbstgra\",\n" +
+            "    \"state\": \"STARTED\",\n" +
+            "    \"type\": \"APPLICATION_LOG\",\n" +
+            "    \"host\": \"12345\",\n" +
+            "    \"timestamp\": 1491377495212\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"id\": \"scsmbstgrb\",\n" +
+            "    \"state\": \"STARTED\",\n" +
+            "    \"timestamp\": 1491377495213\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"id\": \"scsmbstgrc\",\n" +
+            "    \"state\": \"FINISHED\",\n" +
+            "    \"timestamp\": 1491377495218\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"id\": \"scsmbstgra\",\n" +
+            "    \"state\": \"FINISHED\",\n" +
+            "    \"type\": \"APPLICATION_LOG\",\n" +
+            "    \"host\": \"12345\",\n" +
+            "    \"timestamp\": 1491377495217\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"id\": \"scsmbstgrc\",\n" +
+            "    \"state\": \"STARTED\",\n" +
+            "    \"timestamp\": 1491377495210\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"id\": \"scsmbstgrb\",\n" +
+            "    \"state\": \"FINISHED\",\n" +
+            "    \"timestamp\": 1491377495216\n" +
+            "  }\n" +
+            "]"
 }

@@ -7,14 +7,14 @@ class OperationalEventSpec extends Specification {
 
     def 'build events grouping by id'() {
         when:
-        def events = sut.buildEvents()
+        def events = sut.buildEvents("logs/log.json")
         then: '3 events should be'
         events.size() == 3
     }
 
     def 'the 2 alerts should be'() {
         when:
-        def events = sut.buildEvents()
+        def events = sut.buildEvents("logs/log.json")
         then: 'iterate all events if duration grater than threshold alert true other way false'
         def alertsCount = 0
         events.each {
