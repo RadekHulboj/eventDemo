@@ -17,7 +17,7 @@ public class JsonParser {
   ObjectMapper mapperService = new ObjectMapper();
 
   public Event[] createFromJson(String path) throws URISyntaxException, IOException {
-    logger.debug("Parsed path" + path);
+    logger.debug("Parsed path {}", path);
     String stringFrom = fileService.getStringFrom(path);
     return stringFrom != null ? mapperService.readValue(stringFrom, Event[].class) : new Event[]{};
   }

@@ -37,7 +37,7 @@ public class EventSystemApplication {
     final IDaoEvent persistEvent = new PersistEvent();
     List<Event> dbEvents = persistEvent.read();
     dbEvents.stream().forEach(event -> logger
-        .info(String.format("Id: %s duration: %s alert: %s",
+        .info(String.format("Id: %s duration: %s [ms] alert: %s",
                 event.getId(),
                 event.getDuration().toString(),
                 event.getAlert()))

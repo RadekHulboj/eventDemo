@@ -1,9 +1,5 @@
 package cs.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -15,6 +11,8 @@ import java.nio.file.spi.FileSystemProvider;
 import java.util.Collections;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FileService {
 
@@ -35,11 +33,11 @@ public class FileService {
 
     URI uri = resource.toURI();
     if("jar".equals(uri.getScheme())){
-      logger.debug("Uri schema" + uri.getScheme());
+      logger.debug("Uri schema {}", uri.getScheme());
       for (FileSystemProvider provider: FileSystemProvider.installedProviders()) {
         if (provider.getScheme().equalsIgnoreCase("jar")) {
           try {
-            logger.debug("Current uri: " + uri.toString());
+            logger.debug("Current uri: {}", uri);
             provider.getFileSystem(uri);
           } catch (FileSystemNotFoundException e) {
             // in this case we need to initialize it first:

@@ -10,8 +10,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PersistEvent implements IDaoEvent {
+
+  Logger logger = LoggerFactory.getLogger(PersistEvent.class);
 
   private static final String SELECT_ALL_SQL_QUERY = "SELECT ID,state,timestamp,type,host,duration,alert FROM EVENT";
   private static final String INSERT_SQL_QUERY = "INSERT INTO EVENT(ID,state,timestamp,type,host,duration,alert) VALUES(?,?,?,?,?,?,?)";
@@ -27,7 +31,7 @@ public class PersistEvent implements IDaoEvent {
       if (con != null) {
         ps = con.prepareStatement(SELECT_ALL_SQL_QUERY);
         rs = ps.executeQuery();
-        System.out.println("retrieveEvents => " + ps.toString());
+        logger.info("retrieveEvents => {}", ps);
         while (rs.next()) {
           Event event = new Event();
           event.setId(rs.getString("ID"));
@@ -64,7 +68,7 @@ public class PersistEvent implements IDaoEvent {
         ps.setInt(6, Math.toIntExact(event.getDuration()));
         ps.setBoolean(7, event.getAlert());
         ps.execute();
-        System.out.println("insertEvent => " + ps.toString());
+        logger.info("insertEvent => {}",  ps);
       }
     } finally {
       JDBCHelper.closeConnection(con);
