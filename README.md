@@ -5,6 +5,7 @@
 
 ## Short approach
 - git clone https://github.com/RadekHulboj/eventDemo.git
+- cd eventDemo
 - gradle build
 - gradle fatJar
 - java -jar ./build/libs/all-in-one-event.demo-1.0-SNAPSHOT.jar
